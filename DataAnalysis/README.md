@@ -20,16 +20,16 @@ Foram selecionados vídeos de quatro países diferentes, Japão, Brasil, Reino U
 
 Japão:
 
-     O vídeo selecionado foi o Japão 1. Não ocorrem encontros no vídeo e o único grupo com mais de dois indivíduos, no caso, 3, é formado nos tempos 8, 10 e 11.
+O vídeo selecionado foi o Japão 1. Não ocorrem encontros no vídeo e o único grupo com mais de dois indivíduos, no caso, 3, é formado nos tempos 8, 10 e 11.
 
 Brasil:
 
-     O vídeo escolhido foi o Brasil 1. Não ocorrem encontros no vídeo mas são formados grupos de até quatro pessoas.
+O vídeo escolhido foi o Brasil 1. Não ocorrem encontros no vídeo mas são formados grupos de até quatro pessoas.
 
 Reino Unido:
 
-     O vídeo do Reino Unido não contém encontros e o maior grupo possui duas pessoas.
+O vídeo do Reino Unido não contém encontros e o maior grupo possui duas pessoas.
 
 Alemanha:
 
-     O vídeo selecionado foi a Alemanha 2. Foi o único vídeo que apresentou algum encontro entre dois indivíduos, mas isto ocorreu apenas entre dois deles. Existem grupos de até quatro pessoas.
+O vídeo selecionado foi a Alemanha 2. Foi o único vídeo que apresentou algum encontro entre dois indivíduos, mas isto ocorreu apenas entre dois deles. Existem grupos de até quatro pessoas.
