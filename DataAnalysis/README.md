@@ -4,6 +4,8 @@
 
 O objetivo do trabalho consistia em encontrar as ocorrências de três tipos eventos, escolhidos pelo aluno, em vídeos de multidões. Tais vídeos mostravam o comportamento de indivíduos em diferentes países.
 
+Também era necessário a existência de uma demonstração gráfica das trajetórias de cada pessoa existente no arquivo de entrada. Para realizar tal demonstração era obrigatório o uso da biblioteca OpenGL. Infelizmente a versão atual do programa não realiza esta demonstração.
+
 Como entrada para o programa que deveria ser desenvolvido é dado um arquivo de texto que possui a quantidade de pixels que equivalem a um metro e as coordenadas de cada pessoa em cada instante de tempo.
 
 Foi escolhido criar um programa que pudesse analisar os seguintes eventos:
