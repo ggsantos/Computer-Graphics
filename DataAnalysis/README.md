@@ -16,6 +16,14 @@ Foi escolhido criar um programa que pudesse analisar os seguintes eventos:
 
 - Grupo: Definido como o agrupamento de duas ou mais pessoas. Para que indivíduos estejam em um grupo eles devem estar à uma distância mínima de outro indivíduo ou de alguém que pertence à um grupo.
 
+# Implementação
+
+A linguagem utilizada para realizar o projeto foi Java mas, como a linguagem se mostrou inconveniente para a realização do projeto, ocorrerá um troca de linguagem para os próximos projetos e também uma remodelagem deste.
+
+Ao ler o arquivo de entrada é armazenado o valor que corresponde à representação de um metro para ser utilizado nos cálculos dos eventos. Cada pessoa é armazenada com um número (ex.: Person 1) e com o conjunto de suas posições ao longo do vídeo.
+
+Para calcular os eventos foi realisado o cálculo da distância dos pontos que representam cada pessoa em cada frame. No caso dos grupos foi considerado que um pessoa está em um grupo se ela está à uma distância de, no máximo, um metro de outra pessoa.
+
 # Análises
 
 Foram selecionados vídeos de quatro países diferentes, Japão, Brasil, Reino Unido e Alemanha. Para países que possuíam mais de vídeo disponível será especificado qual foi escolhido, caso não seja especificado fica-se subentendido que existia apenas uma opção de vídeo para o país.
