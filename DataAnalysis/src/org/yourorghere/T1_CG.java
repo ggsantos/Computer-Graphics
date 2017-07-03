@@ -1,7 +1,11 @@
 package org.yourorghere;
 
 import com.sun.opengl.util.Animator;
+import com.sun.opengl.util.GLUT;
 import java.awt.Frame;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.media.opengl.GL;
@@ -13,6 +17,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 
@@ -24,6 +31,14 @@ import java.util.Scanner;
  */
 public class T1_CG implements GLEventListener {
 
+    static float rotX, rotY, rotX_ini, rotY_ini;
+    static float obsX, obsY, obsZ =200, obsX_ini, obsY_ini, obsZ_ini;
+    float fAspect = 1, angle = 44;
+    static int x_ini,y_ini,bot;
+    int i = 1;
+    
+    static Events e = new Events();
+    
     public static void main(String[] args) throws FileNotFoundException {
         
         Scanner tec = new Scanner(System.in);
@@ -32,7 +47,7 @@ public class T1_CG implements GLEventListener {
         
         File path_d = new File(tec.nextLine());
         
-        Events e = new Events();
+        
         
         e.createMaps(path_d);
         System.out.println("Aproximações:");
@@ -52,8 +67,30 @@ public class T1_CG implements GLEventListener {
         GLCanvas canvas = new GLCanvas();
 
         canvas.addGLEventListener(new T1_CG());
+        MouseMotionListener l = new MouseMotionListener() {
+            public void mouseDragged(MouseEvent e) {
+                if(e.getButton() == 1){
+                    int deltaz = y_ini - 1;
+
+                    obsZ = obsZ_ini + deltaz/10f;
+                } else if(e.getButton() == 3){
+                    int deltaz = y_ini + 1;
+
+                    obsZ = obsZ_ini + deltaz/10f;
+                }
+            }
+
+            public void mouseMoved(MouseEvent e) {
+                int deltax = x_ini - 1;
+		int deltay = y_ini - 1;
+
+		rotY = rotY_ini - deltax/5.0f;
+		rotX = rotX_ini - deltay/5.0f;
+            }
+        };
+        canvas.addMouseMotionListener(l);
         frame.add(canvas);
-        frame.setSize(500, 500);
+        frame.setSize(1000, 1000);
         final Animator animator = new Animator(canvas);
         frame.addWindowListener(new WindowAdapter() {
 
@@ -76,7 +113,7 @@ public class T1_CG implements GLEventListener {
         frame.setVisible(true);
         animator.start();
     }
-
+    
     public void init(GLAutoDrawable drawable) {
         // Use debug pipeline
         // drawable.setGL(new DebugGL(drawable.getGL()));
@@ -109,51 +146,176 @@ public class T1_CG implements GLEventListener {
         gl.glLoadIdentity();
     }
 
-    public void display(GLAutoDrawable drawable) {
-        GL gl = drawable.getGL();
+    public void displayChanged(GLAutoDrawable drawable, boolean modeChanged, boolean deviceChanged) {
+    }
+    
+    void PosicionaObservador(GLAutoDrawable drawable){
 
-        // Clear the drawing area
-        gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
-        // Reset the current matrix to the "identity"
+        GL gl = drawable.getGL();
+        GLU glu = new GLU();
+
+        gl.glMatrixMode(GL.GL_MODELVIEW);
+
         gl.glLoadIdentity();
 
-        // Move the "drawing cursor" around
-        gl.glTranslatef(-1.5f, 0.0f, -6.0f);
+        gl.glTranslatef(-obsX,-obsY,-obsZ);
 
-        // Drawing Using Triangles
-        //gl.glBegin(GL.GL_TRIANGLES);
-        //    gl.glColor3f(1.0f, 0.0f, 0.0f);    // Set the current drawing color to red
-         //   gl.glVertex3f(0.0f, 1.0f, 0.0f);   // Top
-         //   gl.glColor3f(0.0f, 1.0f, 0.0f);    // Set the current drawing color to green
-         //   gl.glVertex3f(-1.0f, -1.0f, 0.0f); // Bottom Left
-         //   gl.glColor3f(0.0f, 0.0f, 1.0f);    // Set the current drawing color to blue
-         //   gl.glVertex3f(1.0f, -1.0f, 0.0f);  // Bottom Right
-        // Finished Drawing The Triangle
-        //gl.glEnd();
+        gl.glRotatef(rotX,1,0,0);
+        gl.glRotatef(rotY,0,1,0);
 
-        gl.glBegin(GL.GL_LINES);
-            gl.glColor3f(0.0f, 0.0f, 1.0f);
-            gl.glVertex3f(2.424f, 1.522f, 0);
-            gl.glVertex3f(2.516f, 1.674f, 0);
-        gl.glEnd();
+
+        glu.gluLookAt(400.0,80.0,300.0, 950.0,0.0,421.0, 0.0,1.0,0.0);
+    }
+    
+    void EspecificaParametrosVisualizacao(GLAutoDrawable drawable){
+
+        GL gl = drawable.getGL();
+        GLU glu = new GLU();
         
-        // Move the "drawing cursor" to another position
-        //gl.glTranslatef(3.0f, 0.0f, 0.0f);
-        // Draw A Quad
-        //gl.glBegin(GL.GL_QUADS);
-        //    gl.glColor3f(0.5f, 0.5f, 1.0f);    // Set the current drawing color to light blue
-        //    gl.glVertex3f(-1.0f, 1.0f, 0.0f);  // Top Left
-         //   gl.glVertex3f(1.0f, 1.0f, 0.0f);   // Top Right
-         //   gl.glVertex3f(1.0f, -1.0f, 0.0f);  // Bottom Right
-         //   gl.glVertex3f(-1.0f, -1.0f, 0.0f); // Bottom Left
-        // Done Drawing The Quad
-        //gl.glEnd();
+        gl.glMatrixMode(GL.GL_PROJECTION);
 
-        // Flush all drawing operations to the graphics card
+        gl.glLoadIdentity();
+
+
+        glu.gluPerspective(angle,fAspect,0.5,800);
+
+        PosicionaObservador(drawable);
+
+    }
+    
+    void desenhaChao(GLAutoDrawable drawable){
+        GL gl = drawable.getGL();
+        
+        gl.glColor3f(0,0,0);
+        gl.glLineWidth(3);
+        gl.glBegin(GL.GL_LINES);
+        for(float z=-2000; z<=2000; z+=10)
+        {
+            gl.glVertex3f(-2000,-0.1f,z);
+            gl.glVertex3f( 2000,-0.1f,z);
+        }
+        for(float x=-2000; x<=2000; x+=10)
+        {
+            gl.glVertex3f(x,-0.1f,-2000);
+            gl.glVertex3f(x,-0.1f,2000);
+        }
+        gl.glEnd();
+        gl.glLineWidth(1);
+    }
+    
+    public void display(GLAutoDrawable drawable){
+
+        GL gl = drawable.getGL();
+        GLUT glut = new GLUT();
+        
+        gl.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+
+        gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT );
+
+        EspecificaParametrosVisualizacao(drawable);
+
+
+        gl.glColor3f(1.0f, 0.0f, 1.0f);
+        for(Node n : e.getCrowd()){
+            Integer[] array = n.place.get(i);
+            if(array != null){
+                gl.glPushMatrix();
+                gl.glTranslatef(array[0],0,array[1]);
+
+                glut.glutWireTeapot(25);
+
+                gl.glPopMatrix();
+            }
+        }
+        
+        i++;
+
+        desenhaChao(drawable);
+
+
         gl.glFlush();
     }
 
-    public void displayChanged(GLAutoDrawable drawable, boolean modeChanged, boolean deviceChanged) {
-    }
+//    void AlteraTamanhoJanela(GLsizei w, GLsizei h)
+//    {
+//        // Para previnir uma divisão por zero
+//        if ( h == 0 ) h = 1;
+//
+//        // Especifica as dimensões da viewport
+//        glViewport(0, 0, w, h);
+//
+//        // Calcula a correção de aspecto
+//        fAspect = (GL.GL_FLOAT)w/(GL.GL_FLOAT)h;
+//
+//        EspecificaParametrosVisualizacao();
+//    }
+//
+//
+//    void Teclado (char key, int x, int y)
+//    {
+//        if (key == 27)
+//            System.exit(0);
+//    }
+//
+//
+//    void Inicializa (GLAutoDrawable drawable)
+//    {
+//        GL gl = drawable.getGL();
+//        gl.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+//        gl.glLineWidth(2.0f);
+//    }
+//
+//    void GerenciaMouse(int button, int state, int x, int y)
+//    {
+//        GLUT glut = new GLUT();
+//        if(state==GLUT_DOWN)
+//        {
+//            // Salva os parâmetros atuais
+//            x_ini = x;
+//            y_ini = y;
+//            obsX_ini = obsX;
+//            obsY_ini = obsY;
+//            obsZ_ini = obsZ;
+//            rotX_ini = rotX;
+//            rotY_ini = rotY;
+//            bot = button;
+//        }
+//        else bot = -1;
+//    }
+//    void GerenciaMovim(int x, int y)
+//    {
+//
+//        if(bot==GLUT_LEFT_BUTTON)
+//        {
+//
+//            int deltax = x_ini - x;
+//            int deltay = y_ini - y;
+//
+//            rotY = rotY_ini - deltax/5.0f;
+//            rotX = rotX_ini - deltay/5.0f;
+//        }
+//
+//        else if(bot==GLUT_RIGHT_BUTTON)
+//        {
+//
+//            int deltaz = y_ini - y;
+//
+//            obsZ = obsZ_ini + deltaz/10.0f;
+//
+//
+//        }
+//
+//        else if(bot==GLUT_MIDDLE_BUTTON)
+//        {
+//
+//            int deltax = x_ini - x;
+//            int deltay = y_ini - y;
+//
+//            obsX = obsX_ini + deltax/30.0f;
+//            obsY = obsY_ini - deltay/30.0f;
+//        }
+//        PosicionaObservador();
+//        glutPostRedisplay();
+//    }
 }
 
