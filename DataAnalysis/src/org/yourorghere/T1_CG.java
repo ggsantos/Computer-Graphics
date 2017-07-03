@@ -214,7 +214,8 @@ public class T1_CG implements GLEventListener {
 
         EspecificaParametrosVisualizacao(drawable);
 
-
+        desenhaChao(drawable);
+        
         gl.glColor3f(1.0f, 0.0f, 1.0f);
         for(Node n : e.getCrowd()){
             Integer[] array = n.place.get(i);
@@ -230,92 +231,8 @@ public class T1_CG implements GLEventListener {
         
         i++;
 
-        desenhaChao(drawable);
-
-
         gl.glFlush();
     }
 
-//    void AlteraTamanhoJanela(GLsizei w, GLsizei h)
-//    {
-//        // Para previnir uma divisão por zero
-//        if ( h == 0 ) h = 1;
-//
-//        // Especifica as dimensões da viewport
-//        glViewport(0, 0, w, h);
-//
-//        // Calcula a correção de aspecto
-//        fAspect = (GL.GL_FLOAT)w/(GL.GL_FLOAT)h;
-//
-//        EspecificaParametrosVisualizacao();
-//    }
-//
-//
-//    void Teclado (char key, int x, int y)
-//    {
-//        if (key == 27)
-//            System.exit(0);
-//    }
-//
-//
-//    void Inicializa (GLAutoDrawable drawable)
-//    {
-//        GL gl = drawable.getGL();
-//        gl.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-//        gl.glLineWidth(2.0f);
-//    }
-//
-//    void GerenciaMouse(int button, int state, int x, int y)
-//    {
-//        GLUT glut = new GLUT();
-//        if(state==GLUT_DOWN)
-//        {
-//            // Salva os parâmetros atuais
-//            x_ini = x;
-//            y_ini = y;
-//            obsX_ini = obsX;
-//            obsY_ini = obsY;
-//            obsZ_ini = obsZ;
-//            rotX_ini = rotX;
-//            rotY_ini = rotY;
-//            bot = button;
-//        }
-//        else bot = -1;
-//    }
-//    void GerenciaMovim(int x, int y)
-//    {
-//
-//        if(bot==GLUT_LEFT_BUTTON)
-//        {
-//
-//            int deltax = x_ini - x;
-//            int deltay = y_ini - y;
-//
-//            rotY = rotY_ini - deltax/5.0f;
-//            rotX = rotX_ini - deltay/5.0f;
-//        }
-//
-//        else if(bot==GLUT_RIGHT_BUTTON)
-//        {
-//
-//            int deltaz = y_ini - y;
-//
-//            obsZ = obsZ_ini + deltaz/10.0f;
-//
-//
-//        }
-//
-//        else if(bot==GLUT_MIDDLE_BUTTON)
-//        {
-//
-//            int deltax = x_ini - x;
-//            int deltay = y_ini - y;
-//
-//            obsX = obsX_ini + deltax/30.0f;
-//            obsY = obsY_ini - deltay/30.0f;
-//        }
-//        PosicionaObservador();
-//        glutPostRedisplay();
-//    }
 }
 
